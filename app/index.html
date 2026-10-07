@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="wood">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#f3ece1">
+<title>家庭日历</title>
+<!-- iPad / iPhone 的"添加到主屏幕"不读 rel=manifest，只认下面这组 Apple 标签，
+     所以即使服务器把 .webmanifest 的内容类型配错，装到主屏依然是全屏无地址栏。 -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="家庭日历">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<link rel="icon" href="./icons/icon-192.png">
+<!-- manifest 供安卓与桌面 Chrome 使用；MIME 需为 application/manifest+json -->
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<!-- 纯浏览器家庭日历：无后端、无构建、无依赖。数据只在本机 IndexedDB。
+     界面结构在 src/views.js，交互在 src/main.js，数据在 src/db.js。 -->
+<div class="host" id="host"><div class="booting">载入中…</div></div>
+<div class="sheet" id="sheet"></div>
+<div class="mask" id="mDetail"></div>
+<div class="mask" id="mMem"></div>
+<div class="modal" id="dr"></div>
+<div class="rb" id="rb"></div>
+<div class="toast" id="toast"></div>
+<script type="module">import('./src/main.js');</script>
+</body>
+</html>

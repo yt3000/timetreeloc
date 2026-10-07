@@ -1,0 +1,37 @@
+name: tests
+
+# 这个项目没有构建、没有依赖，所以 CI 只做一件事：跑那五套无头测试。
+# 测试全部用 Node 标准库 + 自写的 DOM/IndexedDB 替身，因此不需要 npm install。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  suites:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 22 是当前可用的 LTS；24 用于对齐开发机上的版本
+        node: ['22', '24']
+    name: 五套测试 · node ${{ matrix.node }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: 领域与仓储（含拖动改日期语义）
+        run: node app/test/local.mjs
+      - name: 界面流程（无头驱动 handler）
+        run: node app/test/render.mjs
+      - name: 手势行为（真实派发 pointer 事件）
+        run: node app/test/gesture.mjs
+      - name: 结构约束（零依赖 / 样式令牌 / SW 清单 / iOS 安装）
+        run: node app/test/static.mjs
+      - name: 原型回归
+        run: node prototype/smoke.js

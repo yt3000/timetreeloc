@@ -1,0 +1,11 @@
+# 行尾统一 LF：这个项目在 Windows 上开发，但产物是浏览器里跑的文本文件，
+# CRLF 只会让 diff 和 patch 脚本出问题（真被 "\r\r\n" 咬过）。
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ico binary
+
+# GitHub 语言统计与 diff 用
+*.mjs  text
+*.webmanifest text linguist-language=JSON
